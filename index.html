@@ -7,32 +7,58 @@
   <body>
     <div id="root"></div>
     <script type="text/babel">
-      const e = React.createElement;
-
-      class LikeButton extends React.Component {
+      class GuGuDan extends React.Component {
         constructor(props) {
           super(props);
           this.state = {
-            liked: false,
+            first: Math.ceil(Math.random() * 9),
+            second: Math.ceil(Math.random() * 9),
+            value: '',
+            result: '',
           };
         }
         render() {
           return (
-            <button
-              type="submit"
-              onClick={() => {
-                this.setState({ liked: true });
-              }}>
-              {this.state.liked === true ? 'Liked' : 'Like'}
-            </button>
+            <div>
+              <div>
+                {this.state.first}곱하기{this.state.second}는?
+              </div>
+              <form
+                onSubmit={e => {
+                  e.preventDefault();
+                  if (
+                    parseInt(value) ===
+                    this.state.first * this.state.second
+                  ) {
+                    this.setState({
+                      result: '정답',
+                      first: Math.ceil(Math.random() * 9),
+                      second: Math.ceil(Math.random() * 9),
+                      value: '',
+                    });
+                  } else {
+                    this.setState({
+                      result: '펑',
+                      value: '',
+                    });
+                  }
+                }}>
+                <input
+                  type="number"
+                  value={this.state.value}
+                  onChange={e => this.setState({ value: e.target.value })}
+                />
+                <button>입력!</button>
+                <div>{this.state.result}</div>
+              </form>
+            </div>
           );
-          //JSX (JS+XML)
         }
       }
     </script>
 
     <script type="text/babel">
-      ReactDOM.render(<LikeButton />, document.querySelector('#root'));
+      ReactDOM.render(<GuGuDan />, document.querySelector('#root'));
     </script>
   </body>
 </html>
